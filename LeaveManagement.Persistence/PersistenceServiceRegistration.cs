@@ -14,7 +14,7 @@ namespace LeaveManagement.Persistence;
 
 public static class PersistenceServiceRegistration
 {
-    public static IServiceCollection AddPersistenceService(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<HrDatabaseContext>(options =>
         {
@@ -22,7 +22,7 @@ public static class PersistenceServiceRegistration
         });
 
         //Add access in perscistence to IGENERIC AND GENERIC THROUGH DEPENDENCY INJECTION
-        services.AddScoped(typeof(IGenericRepository<>), typeof(IGenericRepository<>));
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
         //Register them I usable services after we inject the context into them
         services.AddScoped<ILeaveTypeRepository, LeaveTypeRepository>();

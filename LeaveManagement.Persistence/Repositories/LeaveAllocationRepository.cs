@@ -23,23 +23,33 @@ public class LeaveAllocationRepository : GenericRepository<LeaveAllocation>, ILe
         && q.Period == period);
     }
 
-    public Task<LeaveAllocation> GetLeaveAllocationWithDetails(int id)
+    public async Task<LeaveAllocation> GetLeaveAllocationWithDetails(int id)
     {
-        throw new NotImplementedException();
+        var leaveAllocation = await _context.LeaveAllocations
+            .Include(q => q.LeaveType)
+            .FirstOrDefaultAsync(q => q.Id == id);
+        return leaveAllocation;
     }
 
-    public Task<List<LeaveAllocation>> GetLeaveAllocationWithDetails()
+    public async Task<List<LeaveAllocation>> GetLeaveAllocationWithDetails()
     {
-        throw new NotImplementedException();
+        var leaveAllocations = await _context.LeaveAllocations
+            .Include(q => q.LeaveType)
+            .ToListAsync();
+        return leaveAllocations;
     }
 
-    public Task<List<LeaveAllocation>> GetLeaveAllocationWithDetails(string userId)
+    public async Task<List<LeaveAllocation>> GetLeaveAllocationWithDetails(string userId)
     {
-        throw new NotImplementedException();
+        var leaveAllocations = await _context.LeaveAllocations.Where(q => q.EmployeeId == userId)
+            .Include(q => q.LeaveType)
+            .ToListAsync();
+        return leaveAllocations;
     }
 
-    public Task<LeaveAllocation> GetUserAllocations(string userId, int leaveTypeid)
+    public async Task<LeaveAllocation> GetUserAllocations(string userId, int leaveTypeid)
     {
-        throw new NotImplementedException();
+        return await _context.LeaveAllocations
+            .FirstOrDefaultAsync(q => q.EmployeeId == userId && q.LeaveTypeId == leaveTypeid);
     }
 }
