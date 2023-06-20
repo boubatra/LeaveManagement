@@ -5,14 +5,14 @@
     <ValidationSummary />
 
     <fieldset disabled="@Disabled">
-        <div class="form-group">
+        <div class="form-group mb-2">
             <label>Name:</label>
             <div>
                 <InputText @bind-Value="@LeaveType.Name" class="form-control" />
                 <ValidationMessage For="@(() => LeaveType.Name)" />
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group mb-2">
             <label>Default Days:</label>
             <div>
                 <InputNumber @bind-Value="@LeaveType.DefaultDays" class="form-control" />

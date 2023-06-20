@@ -1,6 +1,7 @@
 using Blazored.LocalStorage;
 using LeaveManagement.BlazorUI;
 using LeaveManagement.BlazorUI.Contracts;
+using LeaveManagement.BlazorUI.Handlers;
 using LeaveManagement.BlazorUI.Providers;
 using LeaveManagement.BlazorUI.Services;
 using LeaveManagement.BlazorUI.Services.Base;
@@ -15,10 +16,13 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 //builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
-builder.Services.AddHttpClient<IClient, Client>(client => client.BaseAddress = new Uri("https://localhost:7059"));
+builder.Services.AddTransient<JwtAuthorizationMessageHandler>();
+builder.Services.AddHttpClient<IClient, Client>(client => client.BaseAddress = new Uri("https://localhost:7059"))
+    .AddHttpMessageHandler<JwtAuthorizationMessageHandler>(); ;
 
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddAuthorizationCore();
+builder.Services.AddScoped<ApiAuthenticationStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>();
 
 builder.Services.AddScoped<ILeaveTypeService, LeaveTypeService>();

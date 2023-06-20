@@ -29,9 +29,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeaveManagement.Application
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeaveManagement.Persistence.IntegrationTests", "LeaveManagement.Persistence.IntegrationTests\LeaveManagement.Persistence.IntegrationTests.csproj", "{9F798B1A-848F-4630-8DD4-EC55EC33F635}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeaveManagement.BlazorUI", "LeaveManagement.BlazorUI\LeaveManagement.BlazorUI.csproj", "{8FA19D85-9719-4EF7-ADDA-6732DFB6533E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeaveManagement.BlazorUI", "LeaveManagement.BlazorUI\LeaveManagement.BlazorUI.csproj", "{8FA19D85-9719-4EF7-ADDA-6732DFB6533E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeaveManagement.Identity", "LeaveManagement.Identity\LeaveManagement.Identity.csproj", "{AD8041D4-CCE4-4368-9C40-1B7F1D1D17C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeaveManagement.Identity", "LeaveManagement.Identity\LeaveManagement.Identity.csproj", "{AD8041D4-CCE4-4368-9C40-1B7F1D1D17C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

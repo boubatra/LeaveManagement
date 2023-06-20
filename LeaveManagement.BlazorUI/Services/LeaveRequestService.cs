@@ -16,17 +16,19 @@ namespace LeaveManagement.BlazorUI.Services
             this._mapper = mapper;
         }
 
-        public async Task ApproveLeaveRequest(int id, bool approved)
+        public async Task<Response<Guid>> ApproveLeaveRequest(int id, bool approved)
         {
             try
             {
+                var response = new Response<Guid>();
                 var request = new ChangeLeaveRequestApprovalCommand { Approved = approved, Id = id };
                 await _client.UpdateApprovalAsync(request);
+                return response;
             }
-            catch (Exception)
+            catch (ApiException ex)
             {
 
-                throw;
+                return ConvertApiExceptions<Guid>(ex);
             }
         }
 
@@ -64,6 +66,22 @@ namespace LeaveManagement.BlazorUI.Services
                 LeaveRequests = _mapper.Map<List<LeaveRequestVM>>(leaveRequests)
             };
             return model;
+        }
+
+        public async Task<Response<Guid>> CancelLeaveRequest(int id)
+        {
+            try
+            {
+                var response = new Response<Guid>();
+                var request = new CancelLeaveRequestCommand { Id = id };
+                await _client.CancelRequestAsync(request);
+                return response;
+            }
+            catch (ApiException ex)
+            {
+                return ConvertApiExceptions<Guid>(ex);
+            }
+
         }
 
         public async Task<LeaveRequestVM> GetLeaveRequest(int id)

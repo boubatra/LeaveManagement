@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LeaveManagement.BlazorUI.Models;
 using LeaveManagement.BlazorUI.Models.LeaveAllocations;
 using LeaveManagement.BlazorUI.Models.LeaveRequests;
 using LeaveManagement.BlazorUI.Models.LeaveTypes;
@@ -11,11 +12,16 @@ namespace LeaveManagement.BlazorUI.MappingProfiles
         public MappingConfig()
         {
             CreateMap<LeaveTypeDto, LeaveTypeVM>().ReverseMap();
+            CreateMap<LeaveTypeDetailsDto, LeaveTypeVM>().ReverseMap();
             CreateMap<CreateLeaveTypeCommand, LeaveTypeVM>().ReverseMap();
             CreateMap<UpdateLeaveTypeCommand, LeaveTypeVM>().ReverseMap();
 
-            CreateMap<LeaveRequestListDto, LeaveRequestVM>().ReverseMap();
-            CreateMap<LeaveRequestDetailsDto, LeaveRequestVM>().ReverseMap();
+            CreateMap<LeaveRequestListDto, LeaveRequestVM>()
+                .ForMember(q => q.DateRequested, opt => opt.MapFrom(x => x.DateRequested.DateTime)).ForMember(q => q.StartDate, opt => opt.MapFrom(x => x.StartDate.DateTime)).ForMember(q => q.EndDate, opt => opt.MapFrom(x => x.EndDate.DateTime))
+                .ReverseMap();
+            CreateMap<LeaveRequestDetailsDto, LeaveRequestVM>()
+                .ForMember(q => q.DateRequested, opt => opt.MapFrom(x => x.DateRequested.DateTime)).ForMember(q => q.StartDate, opt => opt.MapFrom(x => x.StartDate.DateTime)).ForMember(q => q.EndDate, opt => opt.MapFrom(x => x.EndDate.DateTime))
+                .ReverseMap();
             CreateMap<CreateLeaveRequestCommand, LeaveRequestVM>().ReverseMap();
             CreateMap<UpdateLeaveRequestCommand, LeaveRequestVM>().ReverseMap();
 
@@ -23,6 +29,9 @@ namespace LeaveManagement.BlazorUI.MappingProfiles
             CreateMap<LeaveAllocationDetailsDto, LeaveAllocationVM>().ReverseMap();
             CreateMap<CreateLeaveAllocationCommand, LeaveAllocationVM>().ReverseMap();
             CreateMap<UpdateLeaveAllocationCommand, LeaveAllocationVM>().ReverseMap();
+
+            CreateMap<EmployeeVM, Employee>().ReverseMap();
+
         }
     }
 }
