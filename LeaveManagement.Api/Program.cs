@@ -1,5 +1,6 @@
 using LeaveManagement.Api.Middleware;
 using LeaveManagement.Application;
+using LeaveManagement.Identity;
 using LeaveManagement.Infrastructure;
 using LeaveManagement.Persistence;
 
@@ -9,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddPersistenceServices(builder.Configuration);
+builder.Services.AddIdentityServices(builder.Configuration);
 
 builder.Services.AddControllers();
 //Allow us to control what kind of requests we accept
@@ -33,6 +35,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("all");
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
