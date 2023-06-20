@@ -1,3 +1,4 @@
+using Blazored.Toast.Services;
 using LeaveManagement.BlazorUI.Contracts;
 using LeaveManagement.BlazorUI.Models.LeaveTypes;
 using LeaveManagement.BlazorUI.Services;
@@ -14,7 +15,8 @@ public partial class Index
     public ILeaveTypeService LeaveTypeService { get; set; }
     [Inject]
     public ILeaveAllocationService LeaveAllocationService { get; set; }
-
+    [Inject]
+    IToastService _toastService { get; set; }
     public List<LeaveTypeVM> LeaveTypes { get; private set; }
     public string Message { get; set; } = string.Empty;
 
@@ -44,7 +46,8 @@ public partial class Index
         var response = await LeaveTypeService.DeleteLeaveType(id);
         if (response.Success)
         {
-            StateHasChanged();
+            _toastService.ShowSuccess("Leave type deleted successfully");
+            await OnInitializedAsync();
         }
         else
         {

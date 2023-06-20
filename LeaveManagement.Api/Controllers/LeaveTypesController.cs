@@ -20,6 +20,7 @@ namespace LeaveManagement.Api.Controllers
         {
             this._mediator = mediator;
         }
+
         // GET: api/<LeaveTypesController>
         [HttpGet]
         public async Task<List<LeaveTypeDto>> Get()
@@ -32,8 +33,8 @@ namespace LeaveManagement.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<LeaveTypeDetailsDto>> Get(int id)
         {
-            var leavetypes =  await _mediator.Send(new GetLeaveTypeDetailsQuery(id));
-            return Ok(leavetypes);
+            var leaveType = await _mediator.Send(new GetLeaveTypeDetailsQuery(id));
+            return Ok(leaveType);
         }
 
         // POST api/<LeaveTypesController>
@@ -47,15 +48,15 @@ namespace LeaveManagement.Api.Controllers
             return CreatedAtAction(nameof(Get), new { id = response });
         }
 
-        // PUT api/<LeaveTypesController>/5
+        // PUT api/<LeaveTypesController>
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(400)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult> Put(UpdateLeaveTypeCommand leavetype)
+        public async Task<ActionResult> Put(UpdateLeaveTypeCommand leaveType)
         {
-            await _mediator.Send(leavetype);
+            await _mediator.Send(leaveType);
             return NoContent();
         }
 

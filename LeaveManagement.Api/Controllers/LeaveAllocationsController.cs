@@ -6,11 +6,13 @@ using LeaveManagement.Application.Features.LeaveAllocation.Queries.GetLeaveAlloc
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LeaveManagement.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class LeaveAllocationsController : ControllerBase
 {
     private readonly IMediator _mediator;
